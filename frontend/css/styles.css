@@ -1,0 +1,607 @@
+/* ============================================
+   CSS Variables - Easy to customize colors
+   ============================================ */
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --secondary-color: #6b7280;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --warning-color: #f59e0b;
+    
+    --bg-color: #f3f4f6;
+    --card-bg: #ffffff;
+    --text-color: #1f2937;
+    --text-light: #6b7280;
+    --border-color: #e5e7eb;
+    
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --radius: 8px;
+}
+
+/* ============================================
+   Reset & Base Styles
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* ============================================
+   Layout
+   ============================================ */
+.app-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.header h1 {
+    font-size: 1.75rem;
+    margin-bottom: 16px;
+}
+
+/* ============================================
+   Navigation Tabs
+   ============================================ */
+.nav-tabs {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.nav-tab {
+    padding: 10px 20px;
+    border: none;
+    background-color: var(--card-bg);
+    color: var(--text-light);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    box-shadow: var(--shadow);
+}
+
+.nav-tab:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.nav-tab.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* ============================================
+   Cards
+   ============================================ */
+.card {
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+}
+
+.card h2 {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+    color: var(--text-color);
+}
+
+.card h3 {
+    font-size: 1.1rem;
+    margin: 20px 0 12px 0;
+    color: var(--text-color);
+}
+
+/* ============================================
+   Forms
+   ============================================ */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+input[type="range"] {
+    width: 100%;
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5b6370;
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #0d9669;
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #dc2626;
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+
+/* ============================================
+   Tab Content
+   ============================================ */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* ============================================
+   Exercise Selection
+   ============================================ */
+.exercise-select-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+}
+
+/* ============================================
+   Sets Entry
+   ============================================ */
+.sets-container {
+    margin: 16px 0;
+}
+
+.sets-header {
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr 100px 40px;
+    gap: 10px;
+    padding: 8px 0;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.set-row {
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr 100px 40px;
+    gap: 10px;
+    padding: 10px 0;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.set-row input,
+.set-row select {
+    padding: 8px;
+}
+
+.set-number {
+    font-weight: 600;
+    text-align: center;
+    color: var(--text-light);
+}
+
+.remove-set-btn {
+    background: none;
+    border: none;
+    color: var(--danger-color);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.remove-set-btn:hover {
+    color: #dc2626;
+}
+
+#current-exercise {
+    background-color: #f9fafb;
+    padding: 16px;
+    border-radius: var(--radius);
+    margin: 16px 0;
+}
+
+#current-exercise h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+/* ============================================
+   Logged Exercises
+   ============================================ */
+.logged-exercise {
+    background-color: #f9fafb;
+    padding: 12px;
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+}
+
+.logged-exercise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.logged-exercise-name {
+    font-weight: 600;
+}
+
+.logged-exercise-sets {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+/* ============================================
+   Workout Actions
+   ============================================ */
+.workout-actions {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.workout-actions .btn {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.workout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.workout-date {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   History
+   ============================================ */
+.filter-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-row input {
+    flex: 1;
+    min-width: 120px;
+}
+
+.workout-history-item {
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.workout-history-item:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow);
+}
+
+.workout-history-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.workout-history-name {
+    font-weight: 600;
+}
+
+.workout-history-date {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.workout-history-stats {
+    display: flex;
+    gap: 20px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.workout-detail {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+    display: none;
+}
+
+.workout-detail.expanded {
+    display: block;
+}
+
+/* ============================================
+   Progress & Charts
+   ============================================ */
+.progress-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.stat-card {
+    background-color: #f9fafb;
+    padding: 16px;
+    border-radius: var(--radius);
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: 4px;
+}
+
+.chart-container {
+    margin: 20px 0;
+    height: 300px;
+}
+
+/* ============================================
+   Stats Summary
+   ============================================ */
+#stats-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+#muscle-group-stats {
+    display: grid;
+    gap: 12px;
+}
+
+.muscle-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background-color: #f9fafb;
+    border-radius: var(--radius);
+}
+
+.muscle-name {
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.muscle-volume {
+    color: var(--text-light);
+}
+
+/* ============================================
+   Personal Records
+   ============================================ */
+.pr-item {
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+}
+
+.pr-exercise {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.pr-records {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+}
+
+.pr-record {
+    background-color: #fef3c7;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+/* ============================================
+   Toast Notifications
+   ============================================ */
+#toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.toast {
+    padding: 14px 20px;
+    border-radius: var(--radius);
+    margin-top: 10px;
+    color: white;
+    box-shadow: var(--shadow-lg);
+    animation: slideIn 0.3s ease;
+}
+
+.toast.success {
+    background-color: var(--success-color);
+}
+
+.toast.error {
+    background-color: var(--danger-color);
+}
+
+.toast.info {
+    background-color: var(--primary-color);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   Loading State
+   ============================================ */
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-light);
+}
+
+/* ============================================
+   Empty State
+   ============================================ */
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-light);
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+@media (max-width: 600px) {
+    .app-container {
+        padding: 12px;
+    }
+    
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .nav-tab {
+        padding: 8px 14px;
+        font-size: 0.85rem;
+    }
+    
+    .card {
+        padding: 16px;
+    }
+    
+    .sets-header,
+    .set-row {
+        grid-template-columns: 40px 1fr 1fr 80px 30px;
+        gap: 6px;
+    }
+    
+    .exercise-select-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .workout-history-stats {
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .progress-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

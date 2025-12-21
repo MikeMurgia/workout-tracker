@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Tracker</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1>💪 Workout Tracker</h1>
+            <nav class="nav-tabs">
+                <button class="nav-tab active" data-tab="log">Log Workout</button>
+                <button class="nav-tab" data-tab="history">History</button>
+                <button class="nav-tab" data-tab="progress">Progress</button>
+                <button class="nav-tab" data-tab="stats">Stats</button>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- LOG WORKOUT TAB -->
+            <section id="log-tab" class="tab-content active">
+                <div class="card">
+                    <h2>Start New Workout</h2>
+                    <form id="new-workout-form">
+                        <div class="form-group">
+                            <label for="workout-name">Workout Name (optional)</label>
+                            <input type="text" id="workout-name" placeholder="e.g., Push Day, Leg Day">
+                        </div>
+                        <div class="form-group">
+                            <label for="workout-date">Date</label>
+                            <input type="date" id="workout-date">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Start Workout</button>
+                    </form>
+                </div>
+
+                <!-- Active Workout Section (hidden until workout started) -->
+                <div id="active-workout" class="card" style="display: none;">
+                    <div class="workout-header">
+                        <h2 id="active-workout-title">Current Workout</h2>
+                        <span id="active-workout-date" class="workout-date"></span>
+                    </div>
+
+                    <!-- Exercise Selection -->
+                    <div class="form-group">
+                        <label for="exercise-select">Add Exercise</label>
+                        <div class="exercise-select-row">
+                            <select id="exercise-select">
+                                <option value="">Select an exercise...</option>
+                            </select>
+                            <select id="muscle-filter">
+                                <option value="">All Muscles</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Sets Entry -->
+                    <div id="current-exercise" style="display: none;">
+                        <h3 id="current-exercise-name"></h3>
+                        <div class="sets-container">
+                            <div class="sets-header">
+                                <span>Set</span>
+                                <span>Weight</span>
+                                <span>Reps</span>
+                                <span>Type</span>
+                                <span></span>
+                            </div>
+                            <div id="sets-list"></div>
+                        </div>
+                        <button id="add-set-btn" class="btn btn-secondary">+ Add Set</button>
+                        <button id="done-exercise-btn" class="btn btn-primary">Done with Exercise</button>
+                    </div>
+
+                    <!-- Logged Exercises Summary -->
+                    <div id="logged-exercises">
+                        <h3>Exercises Logged</h3>
+                        <div id="logged-exercises-list"></div>
+                    </div>
+
+                    <!-- Finish Workout -->
+                    <div class="workout-actions">
+                        <div class="form-group">
+                            <label for="perceived-exertion">How hard was this workout? (1-10)</label>
+                            <input type="range" id="perceived-exertion" min="1" max="10" value="5">
+                            <span id="exertion-value">5</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="workout-notes">Notes (optional)</label>
+                            <textarea id="workout-notes" placeholder="How did you feel? Any notes?"></textarea>
+                        </div>
+                        <button id="finish-workout-btn" class="btn btn-success">Finish Workout</button>
+                        <button id="cancel-workout-btn" class="btn btn-danger">Cancel Workout</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HISTORY TAB -->
+            <section id="history-tab" class="tab-content">
+                <div class="card">
+                    <h2>Workout History</h2>
+                    <div class="filter-row">
+                        <input type="date" id="history-from" placeholder="From">
+                        <input type="date" id="history-to" placeholder="To">
+                        <button id="filter-history-btn" class="btn btn-secondary">Filter</button>
+                    </div>
+                    <div id="workout-history-list"></div>
+                </div>
+            </section>
+
+            <!-- PROGRESS TAB -->
+            <section id="progress-tab" class="tab-content">
+                <div class="card">
+                    <h2>Exercise Progress</h2>
+                    <div class="form-group">
+                        <label for="progress-exercise-select">Select Exercise</label>
+                        <select id="progress-exercise-select">
+                            <option value="">Choose an exercise...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="progress-days">Time Period</label>
+                        <select id="progress-days">
+                            <option value="30">Last 30 days</option>
+                            <option value="60">Last 60 days</option>
+                            <option value="90" selected>Last 90 days</option>
+                            <option value="180">Last 6 months</option>
+                            <option value="365">Last year</option>
+                        </select>
+                    </div>
+                    <button id="load-progress-btn" class="btn btn-primary">Load Progress</button>
+                    
+                    <div id="progress-chart-container" style="display: none;">
+                        <h3 id="progress-exercise-title"></h3>
+                        <div class="progress-stats" id="progress-stats"></div>
+                        <div class="chart-container">
+                            <canvas id="progress-chart"></canvas>
+                        </div>
+                        <div id="progress-data-table"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STATS TAB -->
+            <section id="stats-tab" class="tab-content">
+                <div class="card">
+                    <h2>Training Summary</h2>
+                    <div class="form-group">
+                        <label for="stats-days">Time Period</label>
+                        <select id="stats-days">
+                            <option value="7">Last 7 days</option>
+                            <option value="30" selected>Last 30 days</option>
+                            <option value="60">Last 60 days</option>
+                            <option value="90">Last 90 days</option>
+                        </select>
+                        <button id="load-stats-btn" class="btn btn-primary">Load Stats</button>
+                    </div>
+                    
+                    <div id="stats-summary"></div>
+                    
+                    <h3>Volume by Muscle Group</h3>
+                    <div id="muscle-group-stats"></div>
+                </div>
+
+                <div class="card">
+                    <h2>Personal Records</h2>
+                    <div id="personal-records"></div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Toast Notifications -->
+        <div id="toast-container"></div>
+    </div>
+
+    <!-- Chart.js for progress charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
