@@ -2,11 +2,6 @@
 
 A full-stack personal fitness application combining software engineering with data science to provide intelligent workout tracking and ML-powered predictions.
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Node](https://img.shields.io/badge/node-18%2B-green.svg)
-![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg)
-![PostgreSQL](https://img.shields.io/badge/postgresql-14%2B-blue.svg)
-
 ## 📋 Table of Contents
 
 - [Features](#-features)
