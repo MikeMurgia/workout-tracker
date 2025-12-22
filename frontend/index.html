@@ -15,6 +15,7 @@
                 <button class="nav-tab active" data-tab="log">Log Workout</button>
                 <button class="nav-tab" data-tab="history">History</button>
                 <button class="nav-tab" data-tab="progress">Progress</button>
+                <button class="nav-tab" data-tab="insights">AI Insights</button>
                 <button class="nav-tab" data-tab="stats">Stats</button>
             </nav>
         </header>
@@ -24,6 +25,16 @@
             
             <!-- LOG WORKOUT TAB -->
             <section id="log-tab" class="tab-content active">
+                <!-- Workout Recommendation Banner -->
+                <div id="workout-recommendation-banner" class="card recommendation-banner" style="display: none;">
+                    <div class="recommendation-header">
+                        <span class="recommendation-icon">🎯</span>
+                        <h3>Recommended for Today</h3>
+                    </div>
+                    <div id="recommendation-content"></div>
+                    <button id="dismiss-recommendation" class="btn btn-small btn-secondary">Dismiss</button>
+                </div>
+
                 <div class="card">
                     <h2>Start New Workout</h2>
                     <form id="new-workout-form">
@@ -62,6 +73,13 @@
                     <!-- Sets Entry -->
                     <div id="current-exercise" style="display: none;">
                         <h3 id="current-exercise-name"></h3>
+                        
+                        <!-- AI Prediction for this exercise -->
+                        <div id="exercise-prediction" class="prediction-box" style="display: none;">
+                            <span class="prediction-label">🤖 AI Prediction:</span>
+                            <span id="exercise-prediction-text"></span>
+                        </div>
+                        
                         <div class="sets-container">
                             <div class="sets-header">
                                 <span>Set</span>
@@ -140,8 +158,103 @@
                         <div class="chart-container">
                             <canvas id="progress-chart"></canvas>
                         </div>
+                        
+                        <!-- AI Strength Prediction -->
+                        <div id="strength-prediction-section" class="prediction-section">
+                            <h3>🤖 AI Strength Prediction</h3>
+                            <div id="strength-prediction-content"></div>
+                            <div class="chart-container" id="prediction-chart-container" style="display: none;">
+                                <canvas id="prediction-chart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <!-- Goal Prediction -->
+                        <div id="goal-prediction-section" class="goal-section">
+                            <h3>🎯 Goal Calculator</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="goal-weight">Target 1RM (lbs)</label>
+                                    <input type="number" id="goal-weight" placeholder="e.g., 225">
+                                </div>
+                                <button id="predict-goal-btn" class="btn btn-primary">Predict Date</button>
+                            </div>
+                            <div id="goal-prediction-result"></div>
+                        </div>
+                        
                         <div id="progress-data-table"></div>
                     </div>
+                </div>
+            </section>
+
+            <!-- AI INSIGHTS TAB (NEW) -->
+            <section id="insights-tab" class="tab-content">
+                <!-- Training Health Score -->
+                <div class="card">
+                    <h2>🏥 Training Health Score</h2>
+                    <div id="health-score-container">
+                        <button id="load-health-score-btn" class="btn btn-primary">Analyze My Training</button>
+                    </div>
+                    <div id="health-score-result" style="display: none;">
+                        <div class="health-score-display">
+                            <div class="score-circle" id="health-score-circle">
+                                <span id="health-score-number">--</span>
+                            </div>
+                            <div id="health-score-rating"></div>
+                        </div>
+                        <div id="health-score-breakdown"></div>
+                        <div id="health-recommendations"></div>
+                    </div>
+                </div>
+
+                <!-- Training Balance -->
+                <div class="card">
+                    <h2>⚖️ Muscle Group Balance</h2>
+                    <div class="form-group">
+                        <label for="balance-days">Time Period</label>
+                        <select id="balance-days">
+                            <option value="7" selected>Last 7 days</option>
+                            <option value="14">Last 14 days</option>
+                            <option value="30">Last 30 days</option>
+                        </select>
+                        <button id="load-balance-btn" class="btn btn-primary">Analyze Balance</button>
+                    </div>
+                    <div id="balance-result"></div>
+                    <div class="chart-container" id="balance-chart-container" style="display: none;">
+                        <canvas id="balance-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Anomaly Detection -->
+                <div class="card">
+                    <h2>🔍 Anomaly Detection</h2>
+                    <p class="card-description">AI-detected unusual patterns in your training</p>
+                    <button id="load-anomalies-btn" class="btn btn-primary">Scan for Anomalies</button>
+                    <div id="anomalies-result"></div>
+                </div>
+
+                <!-- Deload Recommendation -->
+                <div class="card">
+                    <h2>😴 Recovery Check</h2>
+                    <p class="card-description">Should you take a deload week?</p>
+                    <button id="check-deload-btn" class="btn btn-primary">Check Recovery Status</button>
+                    <div id="deload-result"></div>
+                </div>
+
+                <!-- 1RM Calculator -->
+                <div class="card">
+                    <h2>🧮 1RM Calculator</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="calc-weight">Weight (lbs)</label>
+                            <input type="number" id="calc-weight" placeholder="185">
+                        </div>
+                        <div class="form-group">
+                            <label for="calc-reps">Reps</label>
+                            <input type="number" id="calc-reps" placeholder="8">
+                        </div>
+                        <button id="calculate-1rm-btn" class="btn btn-primary">Calculate</button>
+                    </div>
+                    <div id="orm-result"></div>
                 </div>
             </section>
 
