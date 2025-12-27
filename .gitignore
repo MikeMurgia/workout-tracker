@@ -88,3 +88,20 @@ tmp/
 temp/
 *.tmp
 *.temp
+
+# ========================================
+# Personal Workout Data Import Files
+# ========================================
+# Text files used for importing personal workout history
+workouts.txt
+*.workout
+*.workouts
+
+# Any exported notes files
+*notes*.txt
+*Notes*.txt
+
+# Import data directory (if you create one)
+import-data/
+imports/
+data/personal/

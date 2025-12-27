@@ -145,4 +145,75 @@ router.post('/', async (req, res, next) => {
     }
 });
 
+// ============================================
+// PUT /exercises/:id
+// ============================================
+// Update an exercise
+router.put('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { name, muscle_group, movement_type, equipment, is_compound, description } = req.body;
+        
+        const { rows } = await query(
+            `UPDATE exercises 
+             SET name = COALESCE($1, name),
+                 muscle_group = COALESCE($2, muscle_group),
+                 movement_type = COALESCE($3, movement_type),
+                 equipment = COALESCE($4, equipment),
+                 is_compound = COALESCE($5, is_compound),
+                 description = COALESCE($6, description)
+             WHERE id = $7
+             RETURNING *`,
+            [name, muscle_group, movement_type, equipment, is_compound, description, id]
+        );
+        
+        if (rows.length === 0) {
+            return res.status(404).json({ error: 'Exercise not found' });
+        }
+        
+        res.json(rows[0]);
+    } catch (err) {
+        if (err.code === '23505') {
+            return res.status(409).json({ error: 'Exercise with this name already exists' });
+        }
+        next(err);
+    }
+});
+
+// ============================================
+// DELETE /exercises/:id
+// ============================================
+// Delete an exercise (will fail if it has workout sets referencing it)
+router.delete('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        
+        // Check if exercise has any sets
+        const setsCheck = await query(
+            'SELECT COUNT(*) as count FROM workout_sets WHERE exercise_id = $1',
+            [id]
+        );
+        
+        if (parseInt(setsCheck.rows[0].count) > 0) {
+            return res.status(400).json({ 
+                error: 'Cannot delete exercise with existing workout data. Delete the workout sets first.',
+                sets_count: parseInt(setsCheck.rows[0].count)
+            });
+        }
+        
+        const { rows } = await query(
+            'DELETE FROM exercises WHERE id = $1 RETURNING id, name',
+            [id]
+        );
+        
+        if (rows.length === 0) {
+            return res.status(404).json({ error: 'Exercise not found' });
+        }
+        
+        res.json({ message: 'Exercise deleted', id: rows[0].id, name: rows[0].name });
+    } catch (err) {
+        next(err);
+    }
+});
+
 module.exports = router;

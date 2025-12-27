@@ -16,6 +16,7 @@
                 <button class="nav-tab" data-tab="history">History</button>
                 <button class="nav-tab" data-tab="progress">Progress</button>
                 <button class="nav-tab" data-tab="insights">AI Insights</button>
+                <button class="nav-tab" data-tab="exercises">Exercises</button>
                 <button class="nav-tab" data-tab="stats">Stats</button>
             </nav>
         </header>
@@ -148,6 +149,10 @@
                             <option value="90" selected>Last 90 days</option>
                             <option value="180">Last 6 months</option>
                             <option value="365">Last year</option>
+                            <option value="730">Last 2 years</option>
+                            <option value="1095">Last 3 years</option>
+                            <option value="1825">Last 5 years</option>
+                            <option value="9999">All time</option>
                         </select>
                     </div>
                     <button id="load-progress-btn" class="btn btn-primary">Load Progress</button>
@@ -186,11 +191,21 @@
                 </div>
             </section>
 
-            <!-- AI INSIGHTS TAB (NEW) -->
+            <!-- AI INSIGHTS TAB -->
             <section id="insights-tab" class="tab-content">
                 <!-- Training Health Score -->
                 <div class="card">
                     <h2>🏥 Training Health Score</h2>
+                    <div class="form-group">
+                        <label for="health-days">Time Period</label>
+                        <select id="health-days">
+                            <option value="30" selected>Last 30 days</option>
+                            <option value="60">Last 60 days</option>
+                            <option value="90">Last 90 days</option>
+                            <option value="180">Last 6 months</option>
+                            <option value="365">Last year</option>
+                        </select>
+                    </div>
                     <div id="health-score-container">
                         <button id="load-health-score-btn" class="btn btn-primary">Analyze My Training</button>
                     </div>
@@ -258,6 +273,126 @@
                 </div>
             </section>
 
+            <!-- EXERCISES TAB (NEW) -->
+            <section id="exercises-tab" class="tab-content">
+                <div class="card">
+                    <h2>➕ Add New Exercise</h2>
+                    <form id="add-exercise-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="new-exercise-name">Exercise Name</label>
+                                <input type="text" id="new-exercise-name" placeholder="e.g., Incline Cable Fly" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="new-exercise-muscle">Muscle Group</label>
+                                <select id="new-exercise-muscle" required>
+                                    <option value="">Select...</option>
+                                    <option value="chest">Chest</option>
+                                    <option value="back">Back</option>
+                                    <option value="shoulders">Shoulders</option>
+                                    <option value="legs">Legs</option>
+                                    <option value="arms">Arms</option>
+                                    <option value="core">Core</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="new-exercise-equipment">Equipment</label>
+                                <select id="new-exercise-equipment">
+                                    <option value="">Select...</option>
+                                    <option value="barbell">Barbell</option>
+                                    <option value="dumbbell">Dumbbell</option>
+                                    <option value="cable">Cable</option>
+                                    <option value="machine">Machine</option>
+                                    <option value="bodyweight">Bodyweight</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="new-exercise-compound">Type</label>
+                                <select id="new-exercise-compound">
+                                    <option value="false">Isolation</option>
+                                    <option value="true">Compound</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Exercise</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h2>📋 Manage Exercises</h2>
+                    <div class="form-group">
+                        <label for="exercise-list-filter">Filter by Muscle Group</label>
+                        <select id="exercise-list-filter">
+                            <option value="">All Muscle Groups</option>
+                            <option value="chest">Chest</option>
+                            <option value="back">Back</option>
+                            <option value="shoulders">Shoulders</option>
+                            <option value="legs">Legs</option>
+                            <option value="arms">Arms</option>
+                            <option value="core">Core</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div id="exercise-list"></div>
+                </div>
+
+                <!-- Edit Exercise Modal -->
+                <div id="edit-exercise-modal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Edit Exercise</h3>
+                            <button class="modal-close" onclick="closeEditExerciseModal()">&times;</button>
+                        </div>
+                        <form id="edit-exercise-form">
+                            <input type="hidden" id="edit-exercise-id">
+                            <div class="form-group">
+                                <label for="edit-exercise-name">Exercise Name</label>
+                                <input type="text" id="edit-exercise-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-exercise-muscle">Muscle Group</label>
+                                <select id="edit-exercise-muscle" required>
+                                    <option value="chest">Chest</option>
+                                    <option value="back">Back</option>
+                                    <option value="shoulders">Shoulders</option>
+                                    <option value="legs">Legs</option>
+                                    <option value="arms">Arms</option>
+                                    <option value="core">Core</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-exercise-equipment">Equipment</label>
+                                <select id="edit-exercise-equipment">
+                                    <option value="">Unknown</option>
+                                    <option value="barbell">Barbell</option>
+                                    <option value="dumbbell">Dumbbell</option>
+                                    <option value="cable">Cable</option>
+                                    <option value="machine">Machine</option>
+                                    <option value="bodyweight">Bodyweight</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-exercise-compound">Type</label>
+                                <select id="edit-exercise-compound">
+                                    <option value="false">Isolation</option>
+                                    <option value="true">Compound</option>
+                                </select>
+                            </div>
+                            <div class="modal-actions">
+                                <button type="button" class="btn btn-secondary" onclick="closeEditExerciseModal()">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
             <!-- STATS TAB -->
             <section id="stats-tab" class="tab-content">
                 <div class="card">
@@ -269,6 +404,11 @@
                             <option value="30" selected>Last 30 days</option>
                             <option value="60">Last 60 days</option>
                             <option value="90">Last 90 days</option>
+                            <option value="180">Last 6 months</option>
+                            <option value="365">Last year</option>
+                            <option value="730">Last 2 years</option>
+                            <option value="1825">Last 5 years</option>
+                            <option value="9999">All time</option>
                         </select>
                         <button id="load-stats-btn" class="btn btn-primary">Load Stats</button>
                     </div>
@@ -289,6 +429,20 @@
 
         <!-- Toast Notifications -->
         <div id="toast-container"></div>
+        
+        <!-- Confirmation Modal -->
+        <div id="confirm-modal" class="modal" style="display: none;">
+            <div class="modal-content modal-small">
+                <div class="modal-header">
+                    <h3 id="confirm-modal-title">Confirm</h3>
+                </div>
+                <p id="confirm-modal-message"></p>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="closeConfirmModal()">Cancel</button>
+                    <button class="btn btn-danger" id="confirm-modal-btn">Delete</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Chart.js for progress charts -->
